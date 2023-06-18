@@ -17,7 +17,7 @@ sbt "Gatling/test"
 Single test:
 
 ```shell
-sbt "Gatling/testOnly vc.Debug"
+sbt "Gatling/testOnly webturs.Debug"
 sbt "Gatling/testOnly *.Debug"
 ```
 
