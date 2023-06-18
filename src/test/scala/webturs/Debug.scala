@@ -19,6 +19,7 @@ class Debug extends Simulation{
     //stressPeakUsers(120).during(120.seconds),
     //stressPeakUsers(135).during(120.seconds),
     //stressPeakUsers(150).during(120.seconds),
+    
     //80% в течении 1 часа
     constantConcurrentUsers(2).during(3600.seconds)
   )
