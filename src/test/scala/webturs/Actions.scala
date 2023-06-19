@@ -8,7 +8,6 @@ object Actions {
 
   val getRoot: HttpRequestBuilder = http("getRoot")
     .get("/webtours/")
-    .check(status is 200)
     .headers(headers_root)
     .resources(
       http("request_1")
@@ -24,21 +23,26 @@ object Actions {
       http("request_5")
         .get("/WebTours/home.html")
         .headers(headers_static_1),
-      http("request_6")
-        .get("/cgi-bin/nav.pl?in=home")
-        .headers(headers_pl),
-      http("request_7")
-        .get("/WebTours/images/mer_login.gif")
     )
     .check(
       status.not(404),
       status.not(500)
     )
 
-  val postLogin: HttpRequestBuilder = http("postLogin")
+  val getUserSession = http("getUserSession")
+    .get("/cgi-bin/nav.pl?in=home")
+    .headers(headers_pl)
+    .resources(
+      http("request_7")
+        .get("/WebTours/images/mer_login.gif")
+    )
+    .check(regex("""name="userSession" value="([^"]+)"""").saveAs("USER_SESSION")
+    )
+
+  val postLogin: HttpRequestBuilder = http("postLogin #{USER_SESSION}")
     .post("/cgi-bin/login.pl")
     .headers(headers_reservation)
-    .formParam("userSession", "136657.689185905HAcQDcQpiiHftcVHfpQHQDcf") //ебануть regex
+    .formParam("userSession", "#{USER_SESSION}")
     .formParam("username", "libin")
     .formParam("password", "1234")
     .formParam("login.x", "66")

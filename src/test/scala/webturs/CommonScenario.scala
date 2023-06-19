@@ -41,16 +41,21 @@ class CommonScenario {
     exec(Actions.getInvoice)
   }
 
+  val getUserSession = group("UserSession"){
+    exec(Actions.getUserSession)
+  }
+
 
   val scn = scenario("webTours")
     .feed(cityDepart)
     .feed(cityArrive)
     .exec(root)
+    .exec(getUserSession)
     .exec(login)
     .exec(flights)
     .exec(selectFlight)
     .exec(selectFrom4th)
     .exec(creditCardInfo)
     .exec(invoice)
-     print(cityDepart)
+
 }
